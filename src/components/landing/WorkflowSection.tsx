@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { PlusCircle, Bell, MousePointerClick, CheckCircle2, Briefcase, CreditCard, LucideIcon } from 'lucide-react'
+import { PlusCircle, Bell, MousePointerClick, CheckCircle2, Briefcase, CreditCard } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Step {
