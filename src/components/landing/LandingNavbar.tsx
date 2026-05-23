@@ -39,11 +39,16 @@ export const LandingNavbar = () => {
     >
       <div className="container max-w-screen-2xl mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Logo */}
-        <Link to={ROUTES.HOME} className="font-bold text-2xl tracking-tighter flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-indigo-500 flex items-center justify-center">
-            <span className="text-white font-black text-lg leading-none">Z</span>
+        <Link to={ROUTES.HOME} className="flex items-center gap-3 group">
+          <div className="relative flex items-center justify-center w-8 h-8">
+            {/* Geometric upward growth symbol */}
+            <div className="absolute w-4 h-4 border-[2.5px] border-foreground rounded-[3px] transition-colors duration-300 group-hover:border-primary" />
+            <div className="absolute w-4 h-4 border-[2.5px] border-foreground/40 rounded-[3px] translate-x-1.5 -translate-y-1.5 transition-all duration-300 group-hover:border-primary/50 group-hover:translate-x-2.5 group-hover:-translate-y-2.5" />
+            <div className="absolute w-1.5 h-1.5 bg-primary rounded-[2px] translate-x-1.5 -translate-y-1.5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-4 group-hover:-translate-y-4" />
           </div>
-          <span className="gradient-text">Zivaro</span>
+          <span className="font-sans font-bold text-[22px] tracking-tighter text-foreground uppercase">
+            Zivaro
+          </span>
         </Link>
 
         {/* Desktop Nav */}

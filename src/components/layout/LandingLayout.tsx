@@ -1,5 +1,4 @@
-import { Outlet, Link } from 'react-router-dom'
-import { ROUTES } from '@/constants/routes'
+import { Outlet } from 'react-router-dom'
 import { LandingNavbar } from '@/components/landing/LandingNavbar'
 
 export const LandingLayout = () => {
