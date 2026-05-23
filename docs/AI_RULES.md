@@ -15,8 +15,14 @@ The following systems, architectures, and sections have been marked as **FINAL a
 **Locked Landing Sections:**
 * Navbar
 * Hero Section
-* Workflow Timeline Section
+* Workflow Timeline
 * Benefits Section
+* Categories Section
+* Testimonials Section
+* FAQ Section
+* Student Hustle Section
+* Final CTA Section
+* Footer Section
 
 **Locked Design System:**
 * Spacious modern UI
@@ -24,6 +30,7 @@ The following systems, architectures, and sections have been marked as **FINAL a
 * Light premium background
 * Dark luxury accents
 * Typography system
+* Color palette
 * Button system
 * Spacing system
 * Animation style
