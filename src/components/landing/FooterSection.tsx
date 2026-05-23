@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Twitter, Instagram, Linkedin } from 'lucide-react'
+
 
 const FOOTER_LINKS = {
   Product: [
@@ -24,9 +24,9 @@ const FOOTER_LINKS = {
 }
 
 const SOCIAL_LINKS = [
-  { icon: Twitter, href: '#' },
-  { icon: Instagram, href: '#' },
-  { icon: Linkedin, href: '#' }
+  { name: 'X/Twitter', href: '#' },
+  { name: 'Instagram', href: '#' },
+  { name: 'LinkedIn', href: '#' }
 ]
 
 const containerVariants = {
@@ -74,8 +74,8 @@ export const FooterSection = () => {
             
             <div className="flex items-center gap-5 pt-2">
               {SOCIAL_LINKS.map((social, idx) => (
-                <a key={idx} href={social.href} className="text-background/40 hover:text-primary transition-all hover:-translate-y-1 duration-300">
-                  <social.icon className="w-5 h-5" />
+                <a key={idx} href={social.href} className="text-background/40 hover:text-primary transition-all hover:-translate-y-1 duration-300 text-sm font-medium">
+                  {social.name}
                 </a>
               ))}
             </div>
