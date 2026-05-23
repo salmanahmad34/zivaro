@@ -1,32 +1,32 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, MapPin, Clock, DollarSign } from 'lucide-react'
+import { ArrowRight, MapPin, Clock, IndianRupee } from 'lucide-react'
 import { useLiveStats } from '@/hooks/useLiveStats'
 
 const JOB_CARDS = [
   {
     id: 1,
-    title: 'Coffee Delivery',
-    distance: '0.5 mi away',
-    time: 'Flexible',
-    rate: '$18/hr',
+    title: 'Event Staff Needed',
+    distance: '2 km away',
+    time: '4 hours',
+    rate: '₹300/hr',
     delay: 0,
     style: { top: '10%', left: '0%' }
   },
   {
     id: 2,
-    title: 'Dog Walking',
-    distance: '1.2 mi away',
-    time: 'Afternoons',
-    rate: '$22/hr',
+    title: 'Moving Help',
+    distance: '0.5 km away',
+    time: '2 hours',
+    rate: '₹400/hr',
     delay: 0.2,
     style: { top: '45%', right: '0%' }
   },
   {
     id: 3,
-    title: 'Math Tutoring',
-    distance: 'Remote',
-    time: 'Evenings',
-    rate: '$30/hr',
+    title: 'Tech Support',
+    distance: '1 km away',
+    time: '3 hours',
+    rate: '₹600/hr',
     delay: 0.4,
     style: { bottom: '10%', left: '15%' }
   },
@@ -135,7 +135,7 @@ export const HeroSection = () => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    <DollarSign className="w-5 h-5" />
+                    <IndianRupee className="w-5 h-5" />
                   </div>
                   <span className="text-sm font-semibold text-foreground bg-muted/50 px-3 py-1 rounded-full">
                     {card.rate}

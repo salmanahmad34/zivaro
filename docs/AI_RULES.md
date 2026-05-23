@@ -2,6 +2,39 @@
 
 This document outlines the strict rules and constraints for AI agents and developers working on the Zivaro frontend. Adherence to these rules is mandatory to maintain a scalable, premium, and robust startup architecture.
 
+## 0. FINAL AND LOCKED SYSTEMS 🔒
+The following systems, architectures, and sections have been marked as **FINAL and LOCKED**. You must NOT overwrite, redesign, alter, or modify these systems unless explicitly requested.
+
+**Locked Architecture:**
+* Routing system
+* Layouts structure
+* Folder structure
+* Responsive foundation
+* Branding system
+
+**Locked Landing Sections:**
+* Navbar
+* Hero Section
+* Workflow Timeline Section
+* Benefits Section
+
+**Locked Design System:**
+* Spacious modern UI
+* Premium startup aesthetic
+* Light premium background
+* Dark luxury accents
+* Typography system
+* Button system
+* Spacing system
+* Animation style
+
+**Strict Rules for Locked Elements:**
+* DO NOT overwrite locked sections.
+* DO NOT redesign locked layouts.
+* DO NOT alter responsive behavior.
+* DO NOT change branding direction.
+* DO NOT modify existing animations unless explicitly requested.
+
 ## 1. Locked Component Rules
 * **Never overwrite completed components:** Once a component is marked as complete or is functioning correctly in production, do not modify its core logic unless explicitly instructed to refactor or add a specific feature.
 * **Preserve existing functionality:** When extending components, always maintain backwards compatibility. Ensure that new props are optional and do not break existing implementations.
@@ -15,15 +48,16 @@ This document outlines the strict rules and constraints for AI agents and develo
 ## 3. Design System Rules
 * **Tailwind CSS ONLY:** All styling must be done using Tailwind CSS utility classes. Avoid creating custom CSS or SCSS files unless absolutely necessary for complex animations or third-party overrides.
 * **shadcn/ui as the foundation:** Use shadcn/ui for base interactive elements. Do not build complex accessible components (like Modals, Selects, or Dialogs) from scratch.
-* **Premium Startup Aesthetic:** Ensure the UI feels spacious and modern.
-    * Use soft, Instagram-like cards with subtle shadows.
-    * Incorporate subtle gradients for backgrounds or text highlights.
+* **Premium Startup Aesthetic:** Ensure the UI feels spacious, minimal, and modern.
+    * Use sharp, clean, geometric identities (Linear/SaaS style) with dark luxury accents.
+    * Maintain light premium backgrounds.
     * Maintain ample padding and margins (whitespace is crucial).
+    * Avoid playful or social-media (Instagram-like) aesthetics.
 
 ## 4. Animation Rules
 * **Framer Motion for complex animations:** Any layout transitions, orchestration, or complex micro-interactions must use `framer-motion`.
-* **Tailwind for simple transitions:** Hover states, focus states, and simple state toggles should use standard Tailwind `transition-all duration-200` utilities.
-* **Keep it subtle:** Animations should enhance the user experience, not distract. Avoid long durations (>300ms) or overly bouncy spring physics unless explicitly requested.
+* **Tailwind for simple transitions:** Hover states, focus states, and simple state toggles should use standard Tailwind `transition-all duration-300` utilities.
+* **Keep it subtle:** Animations should enhance the user experience, not distract. Avoid long durations (>300ms) or overly bouncy spring physics unless explicitly requested. Focus on performance-first interactions.
 
 ## 5. Responsive Layout Rules
 * **Mobile-First Approach:** Always design the default Tailwind classes for mobile (`xs` or default). Progressively enhance for larger screens using `sm:`, `md:`, `lg:`, and `xl:`.
