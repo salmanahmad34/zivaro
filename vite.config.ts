@@ -2,8 +2,12 @@ import path from "path"
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// Render sets RENDER=true. Local dev uses /. GitHub Pages needs /Hustiq/
+const isRender = process.env.RENDER === 'true' || process.env.RENDER === '1';
+const basePath = isRender ? '/' : (process.env.NODE_ENV === 'production' ? '/Hustiq/' : '/');
+
 export default defineConfig({
-  base: '/',
+  base: basePath,
   plugins: [react()],
   resolve: {
     alias: {
