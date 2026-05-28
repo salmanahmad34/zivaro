@@ -7,7 +7,7 @@ const isRender = process.env.RENDER === 'true' || process.env.RENDER === '1';
 const basePath = isRender ? '/' : (process.env.NODE_ENV === 'production' ? '/Hustiq/' : '/');
 
 export default defineConfig({
-  base: basePath,
+  base: '/Hustiq/',
   plugins: [react()],
   resolve: {
     alias: {
