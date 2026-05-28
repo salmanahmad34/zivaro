@@ -15,7 +15,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: isRender ? 'dist' : 'docs',
+    outDir: 'dist',
     sourcemap: false,
     rollupOptions: {
       output: {
