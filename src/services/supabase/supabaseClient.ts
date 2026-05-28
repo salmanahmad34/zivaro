@@ -5,12 +5,22 @@ import type { Database } from '@/types/supabase'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || ''
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 
+// Safe fallback to prevent hard crashes in production if env vars are missing
+const safeUrl = supabaseUrl || 'https://placeholder-project.supabase.co'
+const safeKey = supabaseAnonKey || 'placeholder-anon-key'
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error(
+    '⚠️ Supabase Environment Variables are missing!\n' +
+    'Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your environment variables or GitHub Secrets.'
+  )
+}
+
 /**
  * Supabase Client Instance
  * Initialized with environment variables from .env
- * Throws error if credentials are missing (caught at app level)
  */
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient<Database>(safeUrl, safeKey)
 
 /**
  * Helper to check if Supabase is properly configured
