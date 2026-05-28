@@ -1,10 +1,16 @@
-﻿import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
+import { useAuth } from '@/store/useAuth'
 
 export const PublicRoute = () => {
-  // Placeholder for real auth check
-  const isAuthenticated = false // Replace with real Zustand/Supabase logic
+  const { isAuthenticated, isRecovering } = useAuth()
 
+  // Don't redirect while recovering session
+  if (isRecovering) {
+    return <Outlet />
+  }
+
+  // Redirect authenticated users to dashboard
   if (isAuthenticated) {
     return <Navigate to={ROUTES.DASHBOARD} replace />
   }

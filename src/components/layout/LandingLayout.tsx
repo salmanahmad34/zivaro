@@ -3,8 +3,10 @@ import { Outlet } from 'react-router-dom'
 import { LandingNavbar } from '@/components/landing/LandingNavbar'
 import { AuthModal } from '@/components/auth/AuthModal'
 import { RoleSelectionModal } from '@/components/onboarding/RoleSelectionModal'
+import { ProfileSetupModal } from '@/components/onboarding/ProfileSetupModal'
 import { useAuthModal } from '@/store/useAuthModal'
 import { useOnboardingModal } from '@/store/useOnboardingModal'
+import { BetaFeedbackModal } from '@/components/shared/BetaFeedbackModal'
 
 const GlobalAuthInterceptor = () => {
   const openAuthModal = useAuthModal(state => state.openModal)
@@ -49,6 +51,8 @@ export const LandingLayout = () => {
 
       <AuthModal />
       <RoleSelectionModal />
+      <ProfileSetupModal />
+      <BetaFeedbackModal />
     </div>
   )
 }

@@ -100,7 +100,7 @@ export const RoleSelectionModal = () => {
               
               {/* Header */}
               <div className="text-center mb-10 max-w-lg mx-auto">
-                <span className="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">Welcome to Zivaro</span>
+                <span className="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">Welcome to HustiQ</span>
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-3">
                   How will you use the platform?
                 </h2>

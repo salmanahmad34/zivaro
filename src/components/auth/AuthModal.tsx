@@ -2,14 +2,19 @@ import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Mail, Lock, ArrowRight } from 'lucide-react'
 import { useAuthModal } from '@/store/useAuthModal'
+import { useProfileSetupModal } from '@/store/useProfileSetupModal'
 
 export const AuthModal = () => {
   const { isOpen, mode, closeModal, toggleMode } = useAuthModal()
 
+  const openProfileSetupModal = useProfileSetupModal(state => state.openModal)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     closeModal()
-    // Future: progress to animated Dashboard transition / Profile Setup
+    setTimeout(() => {
+      openProfileSetupModal()
+    }, 150)
   }
 
   // Prevent background scrolling when modal is open
@@ -91,7 +96,7 @@ export const AuthModal = () => {
                 type="button"
                 onClick={() => {
                   closeModal()
-                  // Future: progress to animated Dashboard transition / Profile Setup
+                  setTimeout(() => { openProfileSetupModal() }, 150)
                 }}
                 className="w-full flex items-center justify-center gap-3 bg-muted/50 hover:bg-muted text-foreground font-medium py-3 rounded-xl transition-colors border border-transparent hover:border-border mb-6"
               >

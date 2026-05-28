@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { ZivaroBrandIcon } from '@/components/brand/ZivaroBrandIcon'
 import { Link } from 'react-router-dom'
 
 export const CTASection = () => {
@@ -35,7 +36,7 @@ export const CTASection = () => {
         >
           {/* Subtle Accent Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/10 border border-background/20 mb-8 backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-primary-foreground" />
+            <ZivaroBrandIcon size="xs" color="white" />
             <span className="text-sm font-bold tracking-wide text-background">Ready to take control?</span>
           </div>
 

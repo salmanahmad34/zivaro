@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { MapPin, Clock, Banknote, TrendingUp, Navigation, FastForward, Users, ShieldCheck, Activity, Briefcase } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 interface Benefit {
   title: string

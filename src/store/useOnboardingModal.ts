@@ -14,6 +14,6 @@ export const useOnboardingModal = create<OnboardingModalState>((set) => ({
   isOpen: false,
   selectedRole: null,
   openModal: () => set({ isOpen: true }),
-  closeModal: () => set({ isOpen: false, selectedRole: null }),
+  closeModal: () => set({ isOpen: false }),
   setRole: (role) => set({ selectedRole: role })
 }))
