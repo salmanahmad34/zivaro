@@ -40,7 +40,6 @@ const withSuspense = (Component: React.ComponentType) => (
 )
 
 const router = createBrowserRouter([
-  // Public Routes (Landing)
   {
     path: ROUTES.HOME,
     element: <LandingLayout />,
@@ -51,7 +50,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // Auth Routes (Only accessible if NOT logged in)
   {
     element: <PublicRoute />,
     children: [
@@ -70,7 +68,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // Dashboard Routes (Only accessible if logged in)
   {
     element: <ProtectedRoute />,
     children: [
@@ -121,7 +118,10 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+], {
+  // YEH BASENAME ADD KARNA ZAROORI THA! Iske bina GitHub pages blank dikhayega
+  basename: import.meta.env.BASE_URL
+})
 
 export const AppRouter = () => {
   return <RouterProvider router={router} />
