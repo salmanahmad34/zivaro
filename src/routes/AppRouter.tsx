@@ -15,6 +15,7 @@ import { PublicRoute } from '@/routes/PublicRoute'
 const LandingPage = lazy(() => import('@/pages/public/LandingPage').then(m => ({ default: m.LandingPage })))
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage').then(m => ({ default: m.LoginPage })))
 const SignupPage = lazy(() => import('@/pages/auth/SignupPage').then(m => ({ default: m.SignupPage })))
+const OAuthCallback = lazy(() => import('@/pages/auth/OAuthCallback').then(m => ({ default: m.OAuthCallback })))
 const DashboardIndex = lazy(() => import('@/pages/dashboard/DashboardIndex').then(m => ({ default: m.DashboardIndex })))
 const NotificationsPage = lazy(() => import('@/pages/dashboard/NotificationsPage').then(m => ({ default: m.NotificationsPage })))
 const MessagesPage = lazy(() => import('@/pages/dashboard/MessagesPage').then(m => ({ default: m.MessagesPage })))
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
           {
             path: ROUTES.SIGNUP,
             element: withSuspense(SignupPage),
+          },
+          {
+            path: '/auth/callback',
+            element: withSuspense(OAuthCallback),
           },
         ],
       },
