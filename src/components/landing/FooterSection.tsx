@@ -6,7 +6,7 @@ const FOOTER_LINKS = {
   Product: [
     { name: 'Browse Gigs', href: '/jobs' },
     { name: 'Post a Gig', href: '/jobs/new' },
-    { name: 'Zivaro Premium', href: '/premium' },
+    { name: 'HustiQ Premium', href: '/premium' },
     { name: 'How it Works', href: '#workflow' }
   ],
   Company: [
@@ -64,7 +64,7 @@ export const FooterSection = () => {
                 <div className="absolute w-1.5 h-1.5 bg-primary rounded-[2px] translate-x-1.5 -translate-y-1.5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-4 group-hover:-translate-y-4" />
               </div>
               <span className="font-sans font-bold text-[22px] tracking-tighter text-background uppercase">
-                Zivaro
+                HustiQ
               </span>
             </Link>
             
@@ -106,7 +106,7 @@ export const FooterSection = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-16 md:mt-24 pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/40"
         >
-          <p>© {new Date().getFullYear()} Zivaro Technologies Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} HustiQ Technologies Inc. All rights reserved.</p>
           <div className="flex items-center gap-8 font-medium">
             <Link to="/privacy" className="hover:text-background transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-background transition-colors">Terms of Service</Link>

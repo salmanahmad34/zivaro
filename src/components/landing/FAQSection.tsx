@@ -12,8 +12,8 @@ interface FAQ {
 const FAQS: FAQ[] = [
   {
     id: 'how-it-works',
-    question: 'How exactly does Zivaro work?',
-    answer: 'Zivaro instantly connects verified local students with nearby providers needing temporary help. Providers post a gig with requirements and pay, and students in the vicinity receive an alert. A student applies, the provider approves, and the gig is on.'
+    question: 'How exactly does HustiQ work?',
+    answer: 'HustiQ instantly connects verified local students with nearby providers needing temporary help. Providers post a gig with requirements and pay, and students in the vicinity receive an alert. A student applies, the provider approves, and the gig is on.'
   },
   {
     id: 'matching',
@@ -37,8 +37,8 @@ const FAQS: FAQ[] = [
   },
   {
     id: 'premium',
-    question: 'What are Zivaro Premium plans?',
-    answer: 'While the core platform is free to use, Zivaro Premium offers providers priority listing visibility and advanced matching filters. For students, Premium unlocks immediate payout routing and early access to high-paying local gigs.'
+    question: 'What are HustiQ Premium plans?',
+    answer: 'While the core platform is free to use, HustiQ Premium offers providers priority listing visibility and advanced matching filters. For students, Premium unlocks immediate payout routing and early access to high-paying local gigs.'
   }
 ]
 

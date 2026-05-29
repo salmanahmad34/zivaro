@@ -11,14 +11,14 @@ export const AuthLayout = () => {
 
       <Link to={ROUTES.HOME} className="absolute top-8 left-8 hidden md:flex items-center gap-2 font-bold text-2xl gradient-text">
         <ZivaroBrandIcon size="md" className="text-primary" />
-        Zivaro
+        HustiQ
       </Link>
 
       <main className="w-full max-w-md z-10 glass-card rounded-2xl p-8 border border-border/50">
         <div className="flex justify-center mb-8 md:hidden">
           <Link to={ROUTES.HOME} className="flex items-center gap-2 font-bold text-2xl gradient-text">
             <ZivaroBrandIcon size="md" className="text-primary" />
-            Zivaro
+            HustiQ
           </Link>
         </div>
         <Outlet />

@@ -90,7 +90,7 @@ export const BenefitsSection = () => {
             A win-win ecosystem <br className="hidden md:block"/> for everyone involved.
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mt-4">
-            Zivaro is meticulously designed to eliminate hiring friction for local businesses while maximizing earning potential for students.
+            HustiQ is meticulously designed to eliminate hiring friction for local businesses while maximizing earning potential for students.
           </p>
         </motion.div>
 

@@ -47,7 +47,7 @@ export const LandingNavbar = () => {
             <div className="absolute w-1.5 h-1.5 bg-primary rounded-[2px] translate-x-1.5 -translate-y-1.5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-4 group-hover:-translate-y-4" />
           </div>
           <span className="font-sans font-bold text-[22px] tracking-tighter text-foreground uppercase">
-            Zivaro
+            HustiQ
           </span>
         </Link>
 

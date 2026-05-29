@@ -66,7 +66,7 @@ export const StudentHustleSection = () => {
                 <span className="text-muted-foreground">Your earnings.</span>
               </h2>
               <p className="text-lg md:text-xl text-muted-foreground mt-6 leading-relaxed max-w-lg">
-                We believe student life shouldn't be restricted by rigid part-time shifts. Zivaro empowers you to monetize your free time on your exact terms, fueling your independence.
+                We believe student life shouldn't be restricted by rigid part-time shifts. HustiQ empowers you to monetize your free time on your exact terms, fueling your independence.
               </p>
             </motion.div>
 

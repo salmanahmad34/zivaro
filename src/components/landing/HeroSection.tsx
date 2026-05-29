@@ -72,7 +72,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed"
           >
-            Join thousands of students turning free time into cash. Zivaro connects you with flexible, nearby gigs that fit perfectly around your class schedule.
+            Join thousands of students turning free time into cash. HustiQ connects you with flexible, nearby gigs that fit perfectly around your class schedule.
           </motion.p>
 
           <motion.div
