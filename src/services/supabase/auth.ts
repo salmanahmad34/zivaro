@@ -166,12 +166,13 @@ export const signInUser = async (email: string, password: string) => {
  * Determines the correct OAuth redirect URL based on environment
  */
 const getRedirectUrl = () => {
-  // If running locally, explicitly use localhost
-  const isLocalhost = 
-    window.location.hostname === 'localhost' || 
-    window.location.hostname === '127.0.0.1'
-  
-  let origin = isLocalhost ? 'http://localhost:3000' : window.location.origin
+  // 1. If VITE_SITE_URL is explicitly set in the environment (e.g., Render dashboard), use it.
+  // 2. Otherwise, fall back to window.location.origin dynamically.
+  // This guarantees no hardcoded localhost fallbacks exist in the code.
+  let origin = import.meta.env.VITE_SITE_URL || window.location.origin
+
+  // Ensure origin doesn't end with a trailing slash to prevent double slashes
+  origin = origin.replace(/\/$/, '')
   
   // Account for base path (e.g. GitHub Pages)
   let basePath = import.meta.env.BASE_URL || '/'
@@ -180,7 +181,12 @@ const getRedirectUrl = () => {
   
   // Construct the final redirect URL
   const redirectPath = `${basePath}dashboard`.replace('//', '/')
-  return `${origin}${redirectPath}`
+  const finalUrl = `${origin}${redirectPath}`
+  
+  // TEMPORARY LOGGING: Verify actual redirect URL being sent to signInWithOAuth
+  console.log('[Auth Debug] Initiating Google OAuth with redirect URL:', finalUrl)
+  
+  return finalUrl
 }
 
 /**
