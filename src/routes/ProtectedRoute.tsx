@@ -7,6 +7,15 @@ export const ProtectedRoute = () => {
   const { isAuthenticated, isRecovering, recoverUserSession } = useAuth()
   const [isInitializing, setIsInitializing] = useState(true)
 
+  console.log('[ProtectedRoute Diagnostic] Render:', {
+    pathname: window.location.pathname,
+    hash: window.location.hash,
+    isAuthenticated,
+    isInitializing,
+    isRecovering,
+    basename: import.meta.env.BASE_URL
+  })
+
   // Attempt to recover session on mount
   useEffect(() => {
     let isMounted = true

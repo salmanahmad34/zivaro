@@ -40,6 +40,25 @@ const withSuspense = (Component: React.ComponentType) => (
   </Suspense>
 )
 
+const NotFoundDiagnostic = () => {
+  const { pathname, search, hash } = window.location
+  console.log('[Router Diagnostic] 404 Route hit.', {
+    pathname, search, hash,
+    basename: import.meta.env.BASE_URL
+  })
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-4 text-center">
+      <h1 className="text-4xl font-bold mb-2">404 - Route Not Found</h1>
+      <p className="text-muted-foreground mb-4">React Router could not match this path.</p>
+      <code className="bg-muted p-2 rounded text-sm text-left block w-full max-w-md overflow-auto">
+        Path: {pathname}<br/>
+        Basename: {import.meta.env.BASE_URL}
+      </code>
+      <a href="/" className="mt-6 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium">Return Home</a>
+    </div>
+  )
+}
+
 const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
@@ -123,6 +142,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '*',
+    element: <NotFoundDiagnostic />,
+  }
 ], {
   // YEH BASENAME ADD KARNA ZAROORI THA! Iske bina GitHub pages blank dikhayega
   basename: import.meta.env.BASE_URL
