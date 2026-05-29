@@ -25,13 +25,20 @@ export const BetaFeedbackModal = () => {
   const [bugSeverity, setBugSeverity] = useState('Medium')
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
     if (isOpen) {
       document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', handleKeyDown)
     } else {
       document.body.style.overflow = 'unset'
     }
     return () => {
       document.body.style.overflow = 'unset'
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [isOpen])
 
@@ -378,25 +385,34 @@ export const BetaFeedbackModal = () => {
                         )}
 
                         {/* Submit Row */}
-                        <button
-                          type="submit"
-                          disabled={
-                            isSubmitting ||
-                            (activeTab === 'sentiment' && !emoji) ||
-                            (activeTab === 'feature' && (!suggestionTitle || !suggestionDesc)) ||
-                            (activeTab === 'bug' && (!bugTitle || !bugSteps))
-                          }
-                          className="h-12 w-full mt-4 bg-foreground text-background font-black rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100 shadow-sm shrink-0"
-                        >
-                          {isSubmitting ? (
-                            <span>Logging feedback...</span>
-                          ) : (
-                            <>
-                              <Send className="w-4 h-4 shrink-0" />
-                              <span>Submit Feedback</span>
-                            </>
-                          )}
-                        </button>
+                        <div className="flex gap-3 mt-4 w-full">
+                          <button
+                            type="button"
+                            onClick={() => setIsOpen(false)}
+                            className="h-12 flex-1 bg-muted/40 hover:bg-muted border border-border/60 text-foreground font-black rounded-2xl flex items-center justify-center transition-all shadow-sm shrink-0"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="submit"
+                            disabled={
+                              isSubmitting ||
+                              (activeTab === 'sentiment' && !emoji) ||
+                              (activeTab === 'feature' && (!suggestionTitle || !suggestionDesc)) ||
+                              (activeTab === 'bug' && (!bugTitle || !bugSteps))
+                            }
+                            className="h-12 flex-1 bg-foreground text-background font-black rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100 shadow-sm shrink-0"
+                          >
+                            {isSubmitting ? (
+                              <span>Logging feedback...</span>
+                            ) : (
+                              <>
+                                <Send className="w-4 h-4 shrink-0" />
+                                <span>Submit Feedback</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
                       </form>
                     </motion.div>
                   )}
