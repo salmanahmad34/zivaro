@@ -163,6 +163,27 @@ export const signInUser = async (email: string, password: string) => {
 }
 
 /**
+ * Determines the correct OAuth redirect URL based on environment
+ */
+const getRedirectUrl = () => {
+  // If running locally, explicitly use localhost
+  const isLocalhost = 
+    window.location.hostname === 'localhost' || 
+    window.location.hostname === '127.0.0.1'
+  
+  let origin = isLocalhost ? 'http://localhost:3000' : window.location.origin
+  
+  // Account for base path (e.g. GitHub Pages)
+  let basePath = import.meta.env.BASE_URL || '/'
+  if (!basePath.startsWith('/')) basePath = '/' + basePath
+  if (!basePath.endsWith('/')) basePath = basePath + '/'
+  
+  // Construct the final redirect URL
+  const redirectPath = `${basePath}dashboard`.replace('//', '/')
+  return `${origin}${redirectPath}`
+}
+
+/**
  * Sign in with Google OAuth
  * @returns { error } if failed, otherwise redirects to provider
  */
@@ -176,7 +197,7 @@ export const signInWithGoogle = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: getRedirectUrl(),
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
