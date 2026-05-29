@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Navigate } from 'react-router-dom'
 import { LandingNavbar } from '@/components/landing/LandingNavbar'
 import { AuthModal } from '@/components/auth/AuthModal'
 import { RoleSelectionModal } from '@/components/onboarding/RoleSelectionModal'
 import { ProfileSetupModal } from '@/components/onboarding/ProfileSetupModal'
 import { useAuthModal } from '@/store/useAuthModal'
 import { useOnboardingModal } from '@/store/useOnboardingModal'
+import { useAuth } from '@/store/useAuth'
+import { ROUTES } from '@/constants/routes'
 import { BetaFeedbackModal } from '@/components/shared/BetaFeedbackModal'
 
 const GlobalAuthInterceptor = () => {
@@ -40,6 +42,12 @@ const GlobalAuthInterceptor = () => {
 }
 
 export const LandingLayout = () => {
+  const { isAuthenticated, isRecovering } = useAuth()
+  
+  if (isAuthenticated && !isRecovering) {
+    return <Navigate to={ROUTES.DASHBOARD} replace />
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col scroll-smooth">
       <GlobalAuthInterceptor />
