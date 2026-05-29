@@ -163,6 +163,36 @@ export const signInUser = async (email: string, password: string) => {
 }
 
 /**
+ * Sign in with Google OAuth
+ * @returns { error } if failed, otherwise redirects to provider
+ */
+export const signInWithGoogle = async () => {
+  if (!isSupabaseConfigured()) {
+    console.error('Supabase is not configured.')
+    return { error: new Error('Missing Supabase configuration') }
+  }
+
+  try {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      }
+    })
+
+    if (error) throw error
+    return { data, error: null }
+  } catch (error) {
+    console.error('Error with Google OAuth:', error)
+    return { data: null, error }
+  }
+}
+
+/**
  * Sign out current user
  * Clears session and auth tokens
  */

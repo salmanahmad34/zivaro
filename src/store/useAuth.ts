@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import {
   signInUser,
+  signInWithGoogle,
   signUpUser,
   signOutUser,
   recoverSession,
@@ -27,6 +28,7 @@ interface AuthState {
 
   // Actions
   login: (email: string, password: string) => Promise<void>
+  googleLogin: () => Promise<void>
   signup: (email: string, password: string, name: string, role: 'student' | 'provider') => Promise<void>
   logout: () => Promise<void>
   recoverUserSession: () => Promise<void>
@@ -88,6 +90,25 @@ export const useAuth = create<AuthState>()(
         } finally {
           set({ isLoading: false })
         }
+      },
+
+      // ============================================
+      // GOOGLE LOGIN ACTION
+      // ============================================
+      googleLogin: async () => {
+        set({ isLoading: true, error: null })
+        try {
+          if (!checkSupabaseConfig()) {
+            throw new Error('Supabase is not configured. Please check your environment variables.')
+          }
+          const { error } = await signInWithGoogle()
+          if (error) throw error
+        } catch (err: any) {
+          const errorMessage = err.message || 'Google login failed'
+          set({ error: errorMessage, isLoading: false })
+          throw err
+        }
+        // No finally block to reset isLoading here since the browser redirects away
       },
 
       // ============================================

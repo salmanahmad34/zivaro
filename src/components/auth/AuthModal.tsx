@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Mail, Lock, ArrowRight } from 'lucide-react'
 import { useAuthModal } from '@/store/useAuthModal'
 import { useProfileSetupModal } from '@/store/useProfileSetupModal'
+import { useAuth } from '@/store/useAuth'
 
 export const AuthModal = () => {
   const { isOpen, mode, closeModal, toggleMode } = useAuthModal()
+  const { googleLogin, isLoading, error } = useAuth()
 
   const openProfileSetupModal = useProfileSetupModal(state => state.openModal)
 
@@ -91,14 +93,18 @@ export const AuthModal = () => {
                 </p>
               </div>
 
-              {/* Social Auth Placeholder */}
+              {/* Social Auth */}
               <button 
                 type="button"
-                onClick={() => {
-                  closeModal()
-                  setTimeout(() => { openProfileSetupModal() }, 150)
+                onClick={async () => {
+                  try {
+                    await googleLogin()
+                  } catch (err) {
+                    // error is handled in store
+                  }
                 }}
-                className="w-full flex items-center justify-center gap-3 bg-muted/50 hover:bg-muted text-foreground font-medium py-3 rounded-xl transition-colors border border-transparent hover:border-border mb-6"
+                disabled={isLoading}
+                className="w-full flex items-center justify-center gap-3 bg-muted/50 hover:bg-muted text-foreground font-medium py-3 rounded-xl transition-colors border border-transparent hover:border-border mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -108,6 +114,12 @@ export const AuthModal = () => {
                 </svg>
                 Continue with Google
               </button>
+
+              {error && (
+                <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl text-xs font-semibold leading-relaxed">
+                  {error}
+                </div>
+              )}
 
               <div className="relative flex items-center mb-6">
                 <div className="flex-grow border-t border-border"></div>
@@ -125,7 +137,8 @@ export const AuthModal = () => {
                   <input 
                     type="email" 
                     placeholder="name@example.com"
-                    className="w-full bg-background border border-border rounded-xl py-3 pl-12 pr-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    className="w-full bg-background border border-border rounded-xl py-3 pl-12 pr-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all disabled:opacity-50"
+                    disabled={isLoading}
                     required
                   />
                 </div>
@@ -137,7 +150,8 @@ export const AuthModal = () => {
                   <input 
                     type="password" 
                     placeholder="••••••••"
-                    className="w-full bg-background border border-border rounded-xl py-3 pl-12 pr-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    className="w-full bg-background border border-border rounded-xl py-3 pl-12 pr-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all disabled:opacity-50"
+                    disabled={isLoading}
                     required
                   />
                 </div>
@@ -146,9 +160,10 @@ export const AuthModal = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3.5 rounded-xl font-bold mt-2 shadow-lg hover:shadow-xl transition-all"
+                  disabled={isLoading}
+                  className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3.5 rounded-xl font-bold mt-2 shadow-lg hover:shadow-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {mode === 'signup' ? 'Create Account' : 'Sign In'}
+                  {isLoading ? 'Processing...' : (mode === 'signup' ? 'Create Account' : 'Sign In')}
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </form>
