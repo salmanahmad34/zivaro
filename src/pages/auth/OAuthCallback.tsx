@@ -6,7 +6,7 @@ import { ROUTES } from '@/constants/routes'
 
 export const OAuthCallback = () => {
   const navigate = useNavigate()
-  const { recoverUserSession, user } = useAuth()
+  const { recoverUserSession } = useAuth()
 
   useEffect(() => {
     const handleOAuthCallback = async () => {
@@ -20,19 +20,24 @@ export const OAuthCallback = () => {
         await recoverUserSession()
 
         // Check if user has completed onboarding
-        const session = await supabase.auth.getSession()
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
         
-        if (session.data.session) {
-          // Determine where to send them based on profile state
-          // Using our store which populated the user data
-          // Actually, let's fetch profile directly to be absolutely sure
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('onboarding_completed')
-            .eq('id', session.data.session.user.id)
-            .single()
+        if (sessionError) {
+          console.error('Error fetching session:', sessionError)
+          navigate(ROUTES.LOGIN, { replace: true })
+          return
+        }
+        
+        if (session) {
+          // Add correct typing for user metadata
+          interface UserMetadata {
+            onboarding_completed?: boolean;
+            [key: string]: any;
+          }
+          
+          const userMetadata = session.user.user_metadata as UserMetadata;
 
-          if (profile && !profile.onboarding_completed) {
+          if (!userMetadata.onboarding_completed) {
             // Need to show onboarding modal (can be triggered in dashboard)
             navigate(ROUTES.DASHBOARD, { replace: true })
           } else {
