@@ -38,6 +38,7 @@ export const getProfile = async (userId: string): Promise<SupabaseProfile | null
   if (!isSupabaseConfigured()) return null
 
   try {
+    console.log('[auth.ts] getProfile querying DB for userId:', userId)
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -45,6 +46,7 @@ export const getProfile = async (userId: string): Promise<SupabaseProfile | null
       .single()
 
     if (error) {
+      console.log('[auth.ts] getProfile query error:', error.code, error.message)
       if (error.code === 'PGRST116') {
         // Profile not found - this might happen during signup flow
         return null
@@ -53,6 +55,7 @@ export const getProfile = async (userId: string): Promise<SupabaseProfile | null
       return null
     }
 
+    console.log('[auth.ts] getProfile found profile:', data)
     return data as SupabaseProfile
   } catch (error) {
     console.error('Error fetching profile:', error)
@@ -265,10 +268,55 @@ export const recoverSession = async () => {
  */
 export const buildUserSession = async (userId: string, email: string): Promise<UserSession | null> => {
   try {
+    console.log('[auth.ts] buildUserSession called:', { userId, email })
     const profile = await getProfile(userId)
-    if (!profile) return null
 
-    return {
+    if (!profile) {
+      console.warn('[auth.ts] Profile missing in DB. Attempting to auto-create or use fallback...')
+      
+      // Get current user to access OAuth metadata
+      const currentUser = await getCurrentUser()
+      const metadata = currentUser?.user_metadata || {}
+      const fallbackName = metadata.name || metadata.full_name || email.split('@')[0]
+      
+      // Try to create the profile row automatically
+      const { data: newProfile, error: insertError } = await supabase
+        .from('profiles')
+        .insert({
+          id: userId,
+          role: 'student', // default role
+          name: fallbackName,
+          onboarding_completed: metadata.onboarding_completed || false,
+          metadata: metadata
+        })
+        .select()
+        .single()
+        
+      if (insertError) {
+        console.error('[auth.ts] Profile auto-creation failed, using temporary session:', insertError.message)
+        // Return temporary session fallback
+        return {
+          id: userId,
+          email,
+          role: 'student',
+          name: fallbackName,
+          onboarding_completed: metadata.onboarding_completed || false,
+          metadata: metadata
+        }
+      }
+      
+      console.log('[auth.ts] Profile auto-created successfully:', newProfile)
+      return {
+        id: userId,
+        email,
+        role: newProfile.role,
+        name: newProfile.name || email.split('@')[0],
+        onboarding_completed: newProfile.onboarding_completed,
+        metadata: newProfile.metadata
+      }
+    }
+
+    const session = {
       id: userId,
       email,
       role: profile.role,
@@ -276,6 +324,8 @@ export const buildUserSession = async (userId: string, email: string): Promise<U
       onboarding_completed: profile.onboarding_completed,
       metadata: profile.metadata
     }
+    console.log('[auth.ts] buildUserSession success:', session)
+    return session
   } catch (error) {
     console.error('Error building user session:', error)
     return null

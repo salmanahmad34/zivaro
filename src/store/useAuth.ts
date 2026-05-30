@@ -180,6 +180,11 @@ export const useAuth = create<AuthState>()(
       // SESSION RECOVERY ACTION
       // ============================================
       recoverUserSession: async () => {
+        console.log('[useAuth] Starting recoverUserSession. Current state:', {
+          isAuthenticated: get().isAuthenticated,
+          isRecovering: true,
+          user: get().user
+        })
         set({ isRecovering: true, error: null })
         try {
           if (!checkSupabaseConfig()) {
@@ -188,10 +193,13 @@ export const useAuth = create<AuthState>()(
           }
 
           const session = await recoverSession()
+          console.log('[useAuth] Recovered session from Supabase:', session ? 'Exists' : 'Null', session)
 
           if (session?.user) {
+            console.log('[useAuth] Session user found:', session.user)
             // Build complete user session
             const userSession = await buildUserSession(session.user.id, session.user.email || '')
+            console.log('[useAuth] Built user profile session:', userSession)
 
             if (userSession) {
               set({
@@ -199,15 +207,29 @@ export const useAuth = create<AuthState>()(
                 user: userSession,
                 error: null
               })
+              console.log('[useAuth] Successfully authenticated user with profile')
             } else {
-              // Session exists but profile couldn't be loaded
+              // Session exists but profile couldn't be loaded (e.g. DB trigger delay during OAuth signup)
+              console.warn('[useAuth] Profile not found in database. Using JWT fallback.')
+              
+              const fallbackSession = {
+                id: session.user.id,
+                email: session.user.email || '',
+                role: 'student' as any,
+                name: session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email?.split('@')[0] || 'User',
+                onboarding_completed: session.user.user_metadata?.onboarding_completed || false,
+                metadata: session.user.user_metadata || {}
+              }
+              
               set({
-                isAuthenticated: false,
-                user: null,
-                error: 'Failed to load user profile'
+                isAuthenticated: true,
+                user: fallbackSession,
+                error: null
               })
+              console.log('[useAuth] State updated with fallback session')
             }
           } else {
+            console.log('[useAuth] No active session in Supabase')
             // No active session
             set({
               isAuthenticated: false,
@@ -222,6 +244,10 @@ export const useAuth = create<AuthState>()(
             error: null // Don't show recovery errors to user
           })
         } finally {
+          console.log('[useAuth] Finished recoverUserSession. Final state:', {
+            isAuthenticated: get().isAuthenticated,
+            isRecovering: false
+          })
           set({ isRecovering: false })
         }
       },

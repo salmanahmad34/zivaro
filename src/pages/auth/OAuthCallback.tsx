@@ -9,6 +9,10 @@ export const OAuthCallback = () => {
   const { recoverUserSession } = useAuth()
 
   useEffect(() => {
+    console.log('[OAuthCallback] Mounted')
+    console.log('[OAuthCallback] Current pathname:', window.location.pathname)
+    console.log('[OAuthCallback] Current hash:', window.location.hash)
+
     const handleOAuthCallback = async () => {
       try {
         // Supabase client automatically processes the hash fragment from URL
