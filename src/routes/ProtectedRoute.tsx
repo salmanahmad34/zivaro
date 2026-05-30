@@ -1,9 +1,15 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation, useMatches } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/store/useAuth'
 
 export const ProtectedRoute = () => {
   const { isAuthenticated, isRecovering } = useAuth()
+  const location = useLocation()
+  const matches = useMatches()
+
+  console.log('[ProtectedRoute] Auth State:', { isAuthenticated, isRecovering })
+  console.log('[ProtectedRoute] Current Pathname:', location.pathname)
+  console.log('[ProtectedRoute] Matched Routes:', matches)
 
   // Show nothing while recovering session
   if (isRecovering) {
@@ -19,6 +25,7 @@ export const ProtectedRoute = () => {
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
+    console.log('[ProtectedRoute] Not authenticated, redirecting to login.')
     return <Navigate to={ROUTES.LOGIN} replace />
   }
 

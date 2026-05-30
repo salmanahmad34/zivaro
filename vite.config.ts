@@ -2,9 +2,9 @@ import path from "path"
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Render sets RENDER=true. Local dev uses /. GitHub Pages needs /Hustiq/
-const isRender = process.env.RENDER === 'true' || process.env.RENDER === '1';
-const basePath = isRender ? '/' : (process.env.NODE_ENV === 'production' ? '/Hustiq/' : '/');
+// Set GITHUB_PAGES=true when deploying to GitHub Pages
+const isGitHubPages = process.env.GITHUB_PAGES === 'true';
+const basePath = isGitHubPages ? '/Hustiq/' : '/';
 
 export default defineConfig({
   base: basePath,
