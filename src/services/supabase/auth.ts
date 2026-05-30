@@ -179,8 +179,8 @@ const getRedirectUrl = () => {
   if (!basePath.startsWith('/')) basePath = '/' + basePath
   if (!basePath.endsWith('/')) basePath = basePath + '/'
   
-  // Construct the final redirect URL
-  const redirectPath = `${basePath}dashboard`.replace('//', '/')
+  // Construct the final redirect URL to our dedicated callback route
+  const redirectPath = `${basePath}auth/callback`.replace('//', '/')
   const finalUrl = `${origin}${redirectPath}`
   
   // TEMPORARY LOGGING: Verify actual redirect URL being sent to signInWithOAuth
