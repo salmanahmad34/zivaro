@@ -10,14 +10,10 @@ export const AuthInitializer = ({ children }: { children: React.ReactNode }) => 
 
     const initializeAuth = async () => {
       try {
-        // If coming back from OAuth, wait for Supabase to parse the URL hash
+        // If coming back from OAuth, wait briefly for Supabase to parse the URL hash
         if (window.location.hash && window.location.hash.includes('access_token')) {
           console.log('[AuthInitializer] Detected OAuth hash. Waiting for Supabase processing...')
           await new Promise(resolve => setTimeout(resolve, 500))
-          
-          // Clean the URL hash securely without triggering a router navigation
-          window.history.replaceState(null, '', window.location.pathname + window.location.search)
-          console.log('[AuthInitializer] OAuth hash cleaned.')
         }
 
         // Recover the session globally

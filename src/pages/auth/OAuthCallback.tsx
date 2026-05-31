@@ -23,6 +23,12 @@ export const OAuthCallback = () => {
         
         await recoverUserSession()
 
+        // Clean the URL hash securely after recovery
+        if (window.location.hash) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search)
+          console.log('[OAuthCallback] OAuth hash safely cleaned after session recovery.')
+        }
+
         // Check if user has completed onboarding
         const { data: { session }, error: sessionError } = await supabase.auth.getSession()
         

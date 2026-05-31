@@ -9,7 +9,7 @@ export const PublicRoute = () => {
   // Always allow access to OAuth callback to process the token
   // If we don't do this, Supabase might set isAuthenticated syncly 
   // and redirect to dashboard before the callback finishes its onboarding check.
-  if (location.pathname === '/auth/callback') {
+  if (location.pathname.includes('/auth/callback')) {
     return <Outlet />
   }
 
